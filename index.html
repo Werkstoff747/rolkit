@@ -5,17 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RolKit - Hub de Herramientas de Rol</title>
 
+    <!-- Favicon de RolKit -->
+    <link rel="icon" type="image/png" href="imagenes/rolkit_fav.png">
+
     <!-- Google Fonts: Cinzel & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <!-- FontAwesome para los iconos en color plano -->
+    <!-- FontAwesome para los iconos de la interfaz -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* =========================================================
-            VARIABLES DE TEMA (FUSIÓN VAMPIRO & PATHFINDER)
+            VARIABLES DE TEMA (ACENTO ROJO VAMPIRO)
             ========================================================= */
         :root {
             --bg-color: #0b090c;
@@ -23,7 +26,7 @@
             --card-border: #3b2f44;
             --text-main: #f0ead6;
             --text-muted: #b3a4c4;
-            --accent-gold: #d4af37;
+            --accent-gold: #8b0000;
             --accent-crimson: #8b0000;
             --accent-crimson-hover: #a50000;
             --header-border: #8b0000;
@@ -35,10 +38,10 @@
             --card-border: #d4c2a8;
             --text-main: #2c221e;
             --text-muted: #6b5b52;
-            --accent-gold: #9c7b16;
+            --accent-gold: #8b0000;
             --accent-crimson: #8b0000;
             --accent-crimson-hover: #600000;
-            --header-border: #9c7b16;
+            --header-border: #8b0000;
         }
 
         /* =========================================================
@@ -103,7 +106,7 @@
         }
 
         /* =========================================================
-            CUADRÍCULA DE HERRAMIENTAS (DINÁMICA)
+            CUADRÍCULA DE HERRAMIENTAS (DINÁMICA DESDE GOOGLE SHEETS)
             ========================================================= */
         .hub-grid {
             display: grid;
@@ -145,10 +148,19 @@
         }
 
         .hub-icon {
-            font-size: 3rem;
-            color: var(--accent-gold);
+            width: 60px;
+            height: 60px;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: transform 0.3s ease;
+        }
+
+        .hub-icon img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
         }
 
         .hub-card:hover .hub-icon {
@@ -282,7 +294,6 @@
 </div>
 
 <script>
-    // URL del CSV público de tu Google Sheet
     const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDcl3CBHliMbvI1KJSXe3LhirCCXF2UW2yENHY_nrREeoVO7wunycoN9xPEEbfhMLV4kNP_B2YIToN/pub?output=csv';
 
     async function cargarTarjetasDesdeSheet() {
@@ -291,10 +302,7 @@
             const response = await fetch(csvUrl);
             const data = await response.text();
             
-            // Parsear las líneas del CSV (manejando saltos de línea básicos)
             const rows = data.split('\n').map(row => row.trim()).filter(row => row.length > 0);
-            
-            // Omitir la primera fila si es la cabecera (Nombre, Imagen, Descripción, URL)
             const filasDeDatos = rows.slice(1);
 
             if (filasDeDatos.length === 0) {
@@ -305,18 +313,17 @@
             let htmlContent = '';
 
             filasDeDatos.forEach(row => {
-                // Separar por comas (cuidando comillas básicas si las hubiera)
                 const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/^"|"$/g, '').trim());
                 
                 const nombre = columns[0] || 'Sin título';
-                const iconoClase = columns[1] || 'fa-solid fa-scroll'; // Usamos la columna "Imagen" como clase de FontAwesome o ruta
+                const iconUrl = columns[1] || 'imagenes/default.png';
                 const descripcion = columns[2] || '';
                 const url = columns[3] || '#';
 
                 htmlContent += `
                     <a href="${url}" class="hub-card">
                         <div class="hub-icon">
-                            <i class="${iconoClase}"></i>
+                            <img src="${iconUrl}" alt="${nombre}">
                         </div>
                         <h2 class="hub-title">${nombre}</h2>
                         <p class="hub-desc">${descripcion}</p>
@@ -333,7 +340,6 @@
         }
     }
 
-    // Lógica del Tema Claro/Oscuro
     const themeToggleBtns = document.querySelectorAll(".theme-toggle-btn");
 
     function actualizarIconoTema() {
