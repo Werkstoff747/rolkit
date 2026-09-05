@@ -18,7 +18,7 @@
 
     <style>
         /* =========================================================
-            VARIABLES DE TEMA (MODO OSCURO Y CLARO REFINADO)
+            VARIABLES DE TEMA (OSCURO & CLARO PERSONALIZADO)
             ========================================================= */
         :root {
             --bg-color: #0b090c;
@@ -33,15 +33,16 @@
         }
 
         body.light-mode {
-            --bg-color: #faf6f0; /* Fondo pergamino muy sutil y limpio */
-            --card-bg: #ffffff;    /* Tarjetas totalmente blancas */
-            --card-border: #e2d5c3;/* Borde suave cálido */
-            --text-main: #1a1512;  /* Texto oscuro profundo para máxima legibilidad */
-            --text-muted: #6e5f55; /* Texto secundario legible */
-            --accent-gold: #8b0000;
+            --bg-color: #F4F4F6;        /* Base clara principal */
+            --card-bg: #D0D2D6;       /* Fondo de tarjetas (gris acero suave) */
+            --card-border: #A9AEB6;   /* Bordes de tarjetas (gris acero medio) */
+            --text-main: #2b2628;       /* Texto principal muy oscuro para legibilidad */
+            --text-muted: #6b6366;      /* Texto secundario */
+            --accent-gold: #8b0000;     /* Rojo sangre para acentos y botones */
             --accent-crimson: #8b0000;
             --accent-crimson-hover: #600000;
             --header-border: #8b0000;
+            --accent-gold-alt: #b8860b; /* Dorado arcano para detalles especiales */
         }
 
         /* =========================================================
@@ -92,7 +93,6 @@
             height: auto;
             display: block;
             transition: filter 0.3s ease;
-            /* Filtro para teñir el PNG blanco al color rojo vampiro exacto en ambos modos */
             filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(7000%) hue-rotate(350deg) brightness(90%) contrast(95%);
         }
 
@@ -127,7 +127,7 @@
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
         }
 
         .hub-card::before {
@@ -144,7 +144,7 @@
         .hub-card:hover {
             transform: translateY(-6px);
             border-color: var(--accent-gold);
-            box-shadow: 0 10px 25px rgba(139,0,0,0.12);
+            box-shadow: 0 10px 25px rgba(139,0,0,0.18);
         }
 
         .hub-icon {
