@@ -18,7 +18,7 @@
 
     <style>
         /* =========================================================
-            VARIABLES DE TEMA (ACENTO ROJO VAMPIRO)
+            VARIABLES DE TEMA (MODO OSCURO Y CLARO REFINADO)
             ========================================================= */
         :root {
             --bg-color: #0b090c;
@@ -33,11 +33,11 @@
         }
 
         body.light-mode {
-            --bg-color: #f4ecdf;
-            --card-bg: #b7ab99;
-            --card-border: #d4c2a8;
-            --text-main: #2c221e;
-            --text-muted: #6b5b52;
+            --bg-color: #faf6f0; /* Fondo pergamino muy sutil y limpio */
+            --card-bg: #ffffff;    /* Tarjetas totalmente blancas */
+            --card-border: #e2d5c3;/* Borde suave cálido */
+            --text-main: #1a1512;  /* Texto oscuro profundo para máxima legibilidad */
+            --text-muted: #6e5f55; /* Texto secundario legible */
             --accent-gold: #8b0000;
             --accent-crimson: #8b0000;
             --accent-crimson-hover: #600000;
@@ -92,12 +92,7 @@
             height: auto;
             display: block;
             transition: filter 0.3s ease;
-            /* Filtro para teñir el logo blanco a rojo vampiro en modo oscuro */
-            filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(7000%) hue-rotate(350deg) brightness(90%) contrast(95%);
-        }
-
-        /* En el modo claro ajustamos el tono si quieres que varíe, o mantenemos el mismo rojo corporativo */
-        body.light-mode .site-logo {
+            /* Filtro para teñir el PNG blanco al color rojo vampiro exacto en ambos modos */
             filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(7000%) hue-rotate(350deg) brightness(90%) contrast(95%);
         }
 
@@ -132,6 +127,7 @@
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .hub-card::before {
@@ -148,11 +144,11 @@
         .hub-card:hover {
             transform: translateY(-6px);
             border-color: var(--accent-gold);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            box-shadow: 0 10px 25px rgba(139,0,0,0.12);
         }
 
         .hub-icon {
-            height: 80px; /* Aumentamos el espacio para que la imagen tenga presencia */
+            height: 80px;
             width: 100%;
             margin-bottom: 20px;
             display: flex;
@@ -160,7 +156,7 @@
             justify-content: center;
             transition: transform 0.3s ease;
         }
-        
+
         .hub-icon img {
             max-height: 100%;
             max-width: 100%;
@@ -233,7 +229,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             transition: all 0.2s ease;
             text-decoration: none;
         }
@@ -283,7 +279,7 @@
                 <img src="imagenes/Rolkit-B.png" alt="RolKit - Herramientas sin receta médica" class="site-logo">
             </a>
         </div>
-        <p class="subtitle">Herramientas sin receta médica</p>
+        <p class="subtitle">Selecciona tu dominio de conocimiento</p>
     </header>
 
     <!-- La cuadrícula se rellenará automáticamente desde Google Sheets -->
