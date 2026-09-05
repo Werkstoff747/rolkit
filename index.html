@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Archivos del Archivo Arcano - Hub de Herramientas de Rol</title>
+    <title>RolKit - Hub de Herramientas de Rol</title>
 
     <!-- Google Fonts: Cinzel & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,7 +70,7 @@
         }
 
         /* =========================================================
-            CABECERA MÍSTICA
+            CABECERA MÍSTICA CON LOGOTIPO
             ========================================================= */
         header {
             padding: 40px 20px 30px 20px;
@@ -79,15 +79,21 @@
             transition: border-color 0.3s ease;
         }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            font-size: 2.2rem;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        .logo-container {
+            max-width: 320px;
+            margin: 0 auto 15px auto;
+        }
+
+        .site-logo {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: filter 0.3s ease;
+        }
+
+        /* En modo claro, oscurecemos el logo blanco automáticamente */
+        body.light-mode .site-logo {
+            filter: brightness(0) saturate(100%) invert(14%) sepia(8%) saturate(1200%) hue-rotate(330deg) brightness(90%) contrast(90%);
         }
 
         p.subtitle {
@@ -266,7 +272,6 @@
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 1.6rem; }
             .hub-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -275,7 +280,11 @@
 
 <div class="container">
     <header>
-        <h1>Archivo Arcano</h1>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="imagenes/Rolkit-B.png" alt="RolKit - Herramientas sin receta médica" class="site-logo">
+            </a>
+        </div>
         <p class="subtitle">Selecciona tu dominio de conocimiento</p>
     </header>
 
@@ -302,7 +311,7 @@
     </main>
 
     <footer>
-        Portal de Herramientas de Rol — Páginas de Cortesía
+        RolKit — Herramientas sin receta médica
     </footer>
 </div>
 
