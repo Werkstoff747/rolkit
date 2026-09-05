@@ -92,10 +92,13 @@
             height: auto;
             display: block;
             transition: filter 0.3s ease;
+            /* Filtro para teñir el logo blanco a rojo vampiro en modo oscuro */
+            filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(7000%) hue-rotate(350deg) brightness(90%) contrast(95%);
         }
 
+        /* En el modo claro ajustamos el tono si quieres que varíe, o mantenemos el mismo rojo corporativo */
         body.light-mode .site-logo {
-            filter: brightness(0) saturate(100%) invert(14%) sepia(8%) saturate(1200%) hue-rotate(330deg) brightness(90%) contrast(90%);
+            filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(7000%) hue-rotate(350deg) brightness(90%) contrast(95%);
         }
 
         p.subtitle {
