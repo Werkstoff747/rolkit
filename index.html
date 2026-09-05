@@ -91,7 +91,6 @@
             transition: filter 0.3s ease;
         }
 
-        /* En modo claro, oscurecemos el logo blanco automáticamente */
         body.light-mode .site-logo {
             filter: brightness(0) saturate(100%) invert(14%) sepia(8%) saturate(1200%) hue-rotate(330deg) brightness(90%) contrast(90%);
         }
@@ -104,7 +103,7 @@
         }
 
         /* =========================================================
-            CUADRÍCULA DE HERRAMIENTAS (TARJETAS DE TRANSICIÓN)
+            CUADRÍCULA DE HERRAMIENTAS (DINÁMICA)
             ========================================================= */
         .hub-grid {
             display: grid;
@@ -139,18 +138,10 @@
             transition: background 0.3s ease;
         }
 
-        .hub-card.vampire::before {
-            background: var(--accent-crimson);
-        }
-
         .hub-card:hover {
             transform: translateY(-6px);
             border-color: var(--accent-gold);
             box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-        }
-
-        .hub-card.vampire:hover {
-            border-color: var(--accent-crimson);
         }
 
         .hub-icon {
@@ -158,10 +149,6 @@
             color: var(--accent-gold);
             margin-bottom: 20px;
             transition: transform 0.3s ease;
-        }
-
-        .hub-card.vampire .hub-icon {
-            color: var(--accent-crimson);
         }
 
         .hub-card:hover .hub-icon {
@@ -196,18 +183,8 @@
             transition: all 0.2s ease;
         }
 
-        .hub-card.vampire .hub-btn {
-            border-color: var(--accent-crimson);
-            color: var(--accent-crimson);
-        }
-
         .hub-card:hover .hub-btn {
             background: var(--accent-gold);
-            color: #ffffff;
-        }
-
-        .hub-card.vampire:hover .hub-btn {
-            background: var(--accent-crimson);
             color: #ffffff;
         }
 
@@ -260,7 +237,7 @@
         }
 
         /* =========================================================
-            PIE DE PÁGINA DE CORTESÍA
+            PIE DE PÁGINA
             ========================================================= */
         footer {
             text-align: center;
@@ -288,26 +265,9 @@
         <p class="subtitle">Selecciona tu dominio de conocimiento</p>
     </header>
 
-    <main class="hub-grid">
-        <!-- Herramienta de Vampiro (Censo de Chicago) -->
-        <a href="censo-chicago.html" class="hub-card vampire">
-            <div class="hub-icon">
-                <i class="fa-solid fa-droplet"></i>
-            </div>
-            <h2 class="hub-title">Censo de Vástagos</h2>
-            <p class="hub-desc">Compendio y registro oficial de la Camarilla y los Anarquistas en el dominio de Chicago. Acceso restringido a Vástagos y Narradores.</p>
-            <span class="hub-btn">Acceder al Censo</span>
-        </a>
-
-        <!-- Herramienta de Pathfinder (Ejemplo) -->
-        <a href="pathfinder-herramientas.html" class="hub-card">
-            <div class="hub-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-            </div>
-            <h2 class="hub-title">Herramientas Pathfinder</h2>
-            <p class="hub-desc">Compendio de equipo, grimorios mágicos y gestor de campañas para cronistas y héroes de la fantasía épica.</p>
-            <span class="hub-btn">Acceder al Grimorio</span>
-        </a>
+    <!-- La cuadrícula se rellenará automáticamente desde Google Sheets -->
+    <main class="hub-grid" id="hubGrid">
+        <p style="color: var(--text-muted); grid-column: 1 / -1;">Cargando archivos del archivo arcano...</p>
     </main>
 
     <footer>
@@ -322,6 +282,58 @@
 </div>
 
 <script>
+    // URL del CSV público de tu Google Sheet
+    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTDcl3CBHliMbvI1KJSXe3LhirCCXF2UW2yENHY_nrREeoVO7wunycoN9xPEEbfhMLV4kNP_B2YIToN/pub?output=csv';
+
+    async function cargarTarjetasDesdeSheet() {
+        const gridContainer = document.getElementById('hubGrid');
+        try {
+            const response = await fetch(csvUrl);
+            const data = await response.text();
+            
+            // Parsear las líneas del CSV (manejando saltos de línea básicos)
+            const rows = data.split('\n').map(row => row.trim()).filter(row => row.length > 0);
+            
+            // Omitir la primera fila si es la cabecera (Nombre, Imagen, Descripción, URL)
+            const filasDeDatos = rows.slice(1);
+
+            if (filasDeDatos.length === 0) {
+                gridContainer.innerHTML = '<p style="color: var(--text-muted); grid-column: 1 / -1;">No hay herramientas registradas en el censo.</p>';
+                return;
+            }
+
+            let htmlContent = '';
+
+            filasDeDatos.forEach(row => {
+                // Separar por comas (cuidando comillas básicas si las hubiera)
+                const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(col => col.replace(/^"|"$/g, '').trim());
+                
+                const nombre = columns[0] || 'Sin título';
+                const iconoClase = columns[1] || 'fa-solid fa-scroll'; // Usamos la columna "Imagen" como clase de FontAwesome o ruta
+                const descripcion = columns[2] || '';
+                const url = columns[3] || '#';
+
+                htmlContent += `
+                    <a href="${url}" class="hub-card">
+                        <div class="hub-icon">
+                            <i class="${iconoClase}"></i>
+                        </div>
+                        <h2 class="hub-title">${nombre}</h2>
+                        <p class="hub-desc">${descripcion}</p>
+                        <span class="hub-btn">Acceder</span>
+                    </a>
+                `;
+            });
+
+            gridContainer.innerHTML = htmlContent;
+
+        } catch (error) {
+            console.error('Error al cargar el Google Sheet:', error);
+            gridContainer.innerHTML = '<p style="color: var(--accent-crimson); grid-column: 1 / -1;">Error al conectar con el Archivo Arcano.</p>';
+        }
+    }
+
+    // Lógica del Tema Claro/Oscuro
     const themeToggleBtns = document.querySelectorAll(".theme-toggle-btn");
 
     function actualizarIconoTema() {
@@ -356,6 +368,7 @@
 
     window.addEventListener('DOMContentLoaded', () => {
         initTheme();
+        cargarTarjetasDesdeSheet();
 
         window.addEventListener('scroll', () => {
             const scrollTopBtn = document.getElementById("scrollTopBtn");
