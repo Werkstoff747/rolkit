@@ -284,33 +284,46 @@
         <div class="logo-container">
             <a href="index.html">
                 <!-- Logotipo vectorial integrado en SVG con adaptación automática al tema -->
-                <svg class="site-logo" viewBox="0 0 420 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Isotipo: Maletín con d20 híbrido -->
-                    <g transform="translate(10, 10)">
-                        <!-- Contorno del maletín -->
-                        <rect x="5" y="18" width="70" height="55" rx="8" fill="none" class="svg-logo-stroke" stroke-width="3" />
-                        <!-- Asa del maletín -->
-                        <path d="M25 18 V 10 A 6 6 0 0 1 31 4 H 49 A 6 6 0 0 1 55 10 V 18" fill="none" class="svg-logo-stroke" stroke-width="3" stroke-linecap="round" />
-                        
-                        <!-- Cruz médica / Fondo del dado -->
-                        <path d="M 31 35 H 49 V 53 H 31 Z" class="svg-logo-main" opacity="0.3" />
-                        
-                        <!-- Dado d20 integrado -->
-                        <g transform="translate(40, 44) scale(0.85)">
-                            <polygon points="0,-18 15.5,-9 15.5,9 0,18 -15.5,9 -15.5,-9" fill="none" class="svg-logo-stroke" stroke-width="2" />
-                            <polyline points="-15.5,-9 0,0 15.5,-9" fill="none" class="svg-logo-stroke" stroke-width="1.5" />
-                            <line x1="0" y1="0" x2="0" y2="18" class="svg-logo-stroke" stroke-width="1.5" />
-                            <polyline points="-15.5,9 0,0 15.5,9" fill="none" class="svg-logo-stroke" stroke-width="1.5" />
-                            <line x1="0" y1="0" x2="0" y2="-18" class="svg-logo-stroke" stroke-width="1.5" />
-                        </g>
-                    </g>
+                <svg class="site-logo" viewBox="0 0 450 110" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        .svg-logo-red { fill: #e53935; }
+        .svg-logo-stroke { stroke: #e53935; fill: none; }
+        .svg-logo-text-rol { font-family: 'Cinzel', 'Times New Roman', serif; font-weight: 700; font-size: 52px; fill: #e53935; }
+        .svg-logo-text-kit { font-family: 'Cinzel', 'Times New Roman', serif; font-weight: 700; font-size: 52px; fill: #f0ead6; }
+        .svg-logo-subtext { font-family: 'Inter', sans-serif; font-weight: 400; font-size: 14px; fill: #b3a4c4; letter-spacing: 0.5px; }
+    </style>
 
-                    <!-- Texto corporativo -->
-                    <text x="105" y="52" class="svg-logo-text">Rol<tspan class="svg-logo-text-kit">Kit</tspan></text>
-                    
-                    <!-- Lema -->
-                    <text x="105" y="75" class="svg-logo-subtext">El Dr. Rol recomienda más partidas</text>
-                </svg>
+    <!-- Isotipo: Maletín con dado tridimensional -->
+    <g transform="translate(10, 10)">
+        <!-- Contorno del maletín -->
+        <rect x="5" y="18" width="75" height="58" rx="8" class="svg-logo-stroke" stroke-width="3" />
+        <!-- Asa del maletín -->
+        <path d="M26 18 V 11 A 5 5 0 0 1 31 6 H 50 A 5 5 0 0 1 55 11 V 18" class="svg-logo-stroke" stroke-width="3" stroke-linecap="round" />
+        
+        <!-- Dado / Cubo central isomérico -->
+        <g transform="translate(42, 47) scale(1.1)">
+            <!-- Caras internas del dado -->
+            <polygon points="0,-14 12,-7 0,0 -12,-7" fill="#e53935" opacity="0.4" />
+            <polygon points="0,0 12,-7 12,7 0,14" fill="#e53935" opacity="0.2" />
+            <polygon points="-12,-7 0,0 0,14 -12,7" fill="#e53935" opacity="0.3" />
+            <!-- Aristas exteriores -->
+            <polygon points="0,-14 12,-7 12,7 0,14 -12,7 -12,-7" class="svg-logo-stroke" stroke-width="1.8" />
+            <!-- Líneas centrales -->
+            <line x1="0" y1="-14" x2="0" y2="0" class="svg-logo-stroke" stroke-width="1.5" />
+            <line x1="12" y1="-7" x2="0" y2="0" class="svg-logo-stroke" stroke-width="1.5" />
+            <line x1="-12" y1="-7" x2="0" y2="0" class="svg-logo-stroke" stroke-width="1.5" />
+            <line x1="0" y1="0" x2="0" y2="14" class="svg-logo-stroke" stroke-width="1.5" />
+        </g>
+    </g>
+
+    <!-- Texto corporativo ROLKIT -->
+    <text x="108" y="56">
+        <tspan class="svg-logo-text-rol">ROL</tspan><tspan class="svg-logo-text-kit">KIT</tspan>
+    </text>
+    
+    <!-- Lema -->
+    <text x="108" y="82" class="svg-logo-subtext">El Dr. Rol recomienda más partidas</text>
+</svg>
             </a>
         </div>
         <p class="subtitle">Herramientas sin receta médica</p>
