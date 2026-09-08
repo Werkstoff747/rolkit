@@ -30,6 +30,7 @@
             --accent-crimson: #8b0000;
             --accent-crimson-hover: #a50000;
             --header-border: #8b0000;
+            --logo-color: #e53935; /* Color del logo en modo oscuro */
         }
 
         body.light-mode {
@@ -43,6 +44,7 @@
             --accent-crimson-hover: #600000;
             --header-border: #8b0000;
             --accent-gold-alt: #b8860b; /* Dorado arcano para detalles especiales */
+            --logo-color: #8b0000;      /* Color del logo en modo claro (rojo más profundo) */
         }
 
         /* =========================================================
@@ -74,7 +76,7 @@
         }
 
         /* =========================================================
-            CABECERA MÍSTICA CON LOGOTIPO
+            CABECERA MÍSTICA CON LOGOTIPO SVG EN LÍNEA
             ========================================================= */
         header {
             padding: 40px 20px 30px 20px;
@@ -84,7 +86,7 @@
         }
 
         .logo-container {
-            max-width: 320px;
+            max-width: 420px;
             margin: 0 auto 15px auto;
         }
 
@@ -92,9 +94,14 @@
             width: 100%;
             height: auto;
             display: block;
-            transition: filter 0.3s ease;
-            filter: brightness(0) saturate(100%) invert(15%) sepia(90%) saturate(7000%) hue-rotate(350deg) brightness(90%) contrast(95%);
         }
+
+        /* Enlaces dinámicos del SVG conectados al tema */
+        .svg-logo-main { fill: var(--logo-color); transition: fill 0.3s ease; }
+        .svg-logo-stroke { stroke: var(--logo-color); transition: stroke 0.3s ease; }
+        .svg-logo-text { font-family: 'Cinzel', serif; font-weight: 700; font-size: 42px; fill: var(--logo-color); transition: fill 0.3s ease; }
+        .svg-logo-text-kit { fill: var(--text-main); transition: fill 0.3s ease; }
+        .svg-logo-subtext { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; fill: var(--text-muted); transition: fill 0.3s ease; }
 
         p.subtitle {
             font-size: 1.05rem;
@@ -276,7 +283,34 @@
     <header>
         <div class="logo-container">
             <a href="index.html">
-                <img src="imagenes/Rolkit-B.png" alt="RolKit - Herramientas sin receta médica" class="site-logo">
+                <!-- Logotipo vectorial integrado en SVG con adaptación automática al tema -->
+                <svg class="site-logo" viewBox="0 0 420 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Isotipo: Maletín con d20 híbrido -->
+                    <g transform="translate(10, 10)">
+                        <!-- Contorno del maletín -->
+                        <rect x="5" y="18" width="70" height="55" rx="8" fill="none" class="svg-logo-stroke" stroke-width="3" />
+                        <!-- Asa del maletín -->
+                        <path d="M25 18 V 10 A 6 6 0 0 1 31 4 H 49 A 6 6 0 0 1 55 10 V 18" fill="none" class="svg-logo-stroke" stroke-width="3" stroke-linecap="round" />
+                        
+                        <!-- Cruz médica / Fondo del dado -->
+                        <path d="M 31 35 H 49 V 53 H 31 Z" class="svg-logo-main" opacity="0.3" />
+                        
+                        <!-- Dado d20 integrado -->
+                        <g transform="translate(40, 44) scale(0.85)">
+                            <polygon points="0,-18 15.5,-9 15.5,9 0,18 -15.5,9 -15.5,-9" fill="none" class="svg-logo-stroke" stroke-width="2" />
+                            <polyline points="-15.5,-9 0,0 15.5,-9" fill="none" class="svg-logo-stroke" stroke-width="1.5" />
+                            <line x1="0" y1="0" x2="0" y2="18" class="svg-logo-stroke" stroke-width="1.5" />
+                            <polyline points="-15.5,9 0,0 15.5,9" fill="none" class="svg-logo-stroke" stroke-width="1.5" />
+                            <line x1="0" y1="0" x2="0" y2="-18" class="svg-logo-stroke" stroke-width="1.5" />
+                        </g>
+                    </g>
+
+                    <!-- Texto corporativo -->
+                    <text x="105" y="52" class="svg-logo-text">Rol<tspan class="svg-logo-text-kit">Kit</tspan></text>
+                    
+                    <!-- Lema -->
+                    <text x="105" y="75" class="svg-logo-subtext">El Dr. Rol recomienda más partidas</text>
+                </svg>
             </a>
         </div>
         <p class="subtitle">Herramientas sin receta médica</p>
